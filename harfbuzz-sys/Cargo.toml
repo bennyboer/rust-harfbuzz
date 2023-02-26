@@ -39,5 +39,5 @@ freetype = { version = "0.7", default-features = false }
 [features]
 default = ["build-native-harfbuzz", "build-native-freetype"]
 bindgen = ["bindgen_", "regex"]
-build-native-harfbuzz = ["cc", "pkg-config"]
+build-native-harfbuzz = ["cc"]
 build-native-freetype = ["freetype/freetype-sys"]
