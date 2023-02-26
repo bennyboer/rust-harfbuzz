@@ -25,7 +25,7 @@ build = "build.rs"
 [build-dependencies]
 cc = { version = "1", optional = true }
 regex = { version = "1", optional = true }
-bindgen_ = { version = "0.59", optional = true, package = "bindgen" }
+bindgen_ = { version = "0.64.0", optional = true, package = "bindgen" }
 pkg-config = { version = "0.3", optional = true }
 
 [target.'cfg(target_vendor = "apple")'.dependencies]

@@ -60,7 +60,7 @@ mod bindings {
             .allowlist_function("hb_.*")
             .header_contents(
                 "wrapper.h",
-                "#include \"hb.h\"\n#include \"hb-ot.h\"\n#include \"hb-aat.h\"",
+                "#include \"hb.h\"\n#include \"hb-ot.h\"\n#include \"hb-aat.h\"\n#include \"hb-subset.h\"",
             );
 
         for include_dir in include_dirs {
