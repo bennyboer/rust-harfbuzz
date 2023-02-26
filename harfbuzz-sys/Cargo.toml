@@ -1,6 +1,6 @@
 [package]
 name = "harfbuzz-sys"
-version = "0.5.0"
+version = "0.6.0"
 
 authors = ["The Servo Project Developers"]
 license = "MIT"
@@ -26,7 +26,8 @@ build = "build.rs"
 cc = { version = "1", optional = true }
 regex = { version = "1", optional = true }
 bindgen_ = { version = "0.64.0", optional = true, package = "bindgen" }
-pkg-config = { version = "0.3", optional = true }
+pkg-config = { version = "0.3" }
+vcpkg = "0.2.15"
 
 [target.'cfg(target_vendor = "apple")'.dependencies]
 core-graphics = "0.22"
@@ -37,7 +38,7 @@ foreign-types = "0.3"
 freetype = { version = "0.7", default-features = false }
 
 [features]
-default = ["build-native-harfbuzz", "build-native-freetype"]
+default = ["bindgen", "build-native-freetype"]
 bindgen = ["bindgen_", "regex"]
 build-native-harfbuzz = ["cc"]
 build-native-freetype = ["freetype/freetype-sys"]

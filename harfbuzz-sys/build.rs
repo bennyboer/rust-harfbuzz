@@ -3,6 +3,7 @@ extern crate bindgen_;
 #[cfg(feature = "build-native-harfbuzz")]
 extern crate cc;
 extern crate pkg_config;
+extern crate vcpkg;
 
 use std::env;
 use std::path::{Path, PathBuf};
@@ -14,10 +15,10 @@ mod bindings {
     use std::io::prelude::*;
     use std::path::{Path, PathBuf};
 
-    static WRAPPER: &'static str = "#include \"hb.h\"
-#include \"hb-ot.h\"
-#include \"hb-aat.h\"
-#include \"hb-subset.h\"
+    static WRAPPER: &'static str = "#include \"harfbuzz/hb.h\"
+#include \"harfbuzz/hb-ot.h\"
+#include \"harfbuzz/hb-aat.h\"
+#include \"harfbuzz/hb-subset.h\"
 ";
 
     struct BindingsWriter {
@@ -113,19 +114,19 @@ fn main() {
 #[cfg(not(feature = "build-native-harfbuzz"))]
 fn main() {
     #[allow(unused_mut)]
-    let mut pkgcfg = pkg_config::Config::new();
+    let mut vcpkg = vcpkg::Config::new();
 
     // allow other version of harfbuzz when bindgen enabled.
     #[cfg(not(feature = "bindgen"))]
     pkgcfg.range_version("4.2".."5");
 
-    match pkgcfg.probe("harfbuzz") {
-        Ok(_lib) => {
+    match vcpkg.find_package("harfbuzz") {
+        Ok(lib) => {
             #[cfg(feature = "bindgen")]
-            bindings::gen(&_lib.include_paths);
+            bindings::gen(&lib.include_paths);
             return;
         }
-        Err(_) => {}
+        Err(e) => println!("cargo:warning=Could not find harfbuzz via vcpkg: {}", e)
     }
 
     if let Ok(libdir) = env::var("HARFBUZZ_LIB_DIR") {
