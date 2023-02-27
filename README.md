@@ -8,15 +8,15 @@ Bindings to the Harfbuzz text shaping engine
 
 ### Building bindings from system library (under Windows)
 
-#### Install needed libraries
+#### Install harfbuzz statically linked library
 
 ```bash
-vcpkg install --recurse glib fontconfig freetype cairo harfbuzz
+vcpkg install harfbuzz --triplet x64-windows-static
 ```
 
-#### Configure vcpkg
+#### Configure vcpkg for cargo
 
-Configure environment variable `$env:RUSTFLAGS="-Ctarget-feature=+crt-static"`
+Set environment variable `RUSTFLAGS="-Ctarget-feature=+crt-static"`
 
 #### Build
 
